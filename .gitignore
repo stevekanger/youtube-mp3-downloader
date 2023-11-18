@@ -1,5 +1,7 @@
 /node_modules
 /dist
 config.ts
+/public/app.bundle.js
+/public/app.bundle.js.map
 /.vscode
 
