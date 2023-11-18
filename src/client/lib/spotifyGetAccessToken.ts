@@ -21,7 +21,7 @@ export default async function spotifyGetAccessToken(code: string) {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        client_id: config.spotifyClientID,
+        client_id: config.spotifyClientId,
         grant_type: 'authorization_code',
         code,
         redirect_uri: config.clientUri + '/auth/spotify/callback',

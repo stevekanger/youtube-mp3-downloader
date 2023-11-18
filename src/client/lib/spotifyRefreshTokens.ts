@@ -26,7 +26,7 @@ export default async function refreshTokens(): Promise<boolean> {
       body: new URLSearchParams({
         grant_type: 'refresh_token',
         refresh_token: refreshToken,
-        client_id: config.spotifyClientID,
+        client_id: config.spotifyClientId,
       }),
     })
 

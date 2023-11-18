@@ -69,7 +69,7 @@ export default async function spotifyAuthorize() {
 
   const params = {
     response_type: 'code',
-    client_id: config.spotifyClientID,
+    client_id: config.spotifyClientId,
     scope,
     code_challenge_method: 'S256',
     code_challenge: codeChallenge,
