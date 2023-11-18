@@ -1,0 +1,19 @@
+.searchForm {
+  display: block;
+  width: 100%;
+}
+
+.searchBar {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  border: 0.2rem solid var(--primary);
+  border-radius: 1.5rem;
+  background: var(--dark-l1);
+  outline: 0;
+  color: var(--white);
+}
+
+.searchBar:focus {
+  border: 0.2rem solid var(--secondary);
+}

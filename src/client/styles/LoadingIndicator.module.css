@@ -1,0 +1,36 @@
+.loader {
+  display: flex;
+  width: 2.4rem;
+  height: 1rem;
+  margin: 1rem auto;
+}
+
+.loader span {
+  display: block;
+  margin: 0.1rem;
+  background: var(--white);
+  flex: 1;
+  animation: blink 300ms ease-out infinite;
+}
+
+.loader span:nth-of-type(2) {
+  animation-delay: 100ms;
+}
+
+.loader span:nth-of-type(3) {
+  animation-delay: 100ms;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,9 @@
+.downloadBtn {
+  padding: 2rem;
+  font-size: 1.4rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
