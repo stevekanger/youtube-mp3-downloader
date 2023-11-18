@@ -4,6 +4,10 @@ Express/React youtube mp3 downloader that adds the option to automatically set t
 
 ## Installation
 
+Requires ffmpeg to be installed on your machine. https://www.ffmpeg.org
+
+Clone the repository
+
 ```bash
 git clone https://github.com/stevekanger/youtube-mp3-downloader.git
 
