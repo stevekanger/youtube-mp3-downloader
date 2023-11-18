@@ -9,10 +9,17 @@ git clone https://github.com/stevekanger/youtube-mp3-downloader.git
 
 ```
 
-then
+Install packages
 
 ```bash
 npm install
+
+```
+
+Run the dev server
+
+```bash
+npm run dev
 
 ```
 
