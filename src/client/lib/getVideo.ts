@@ -34,6 +34,7 @@ export default async function getVideo(videoId: string): Promise<boolean> {
       return false
     }
 
+    setVideo(video)
     return true
   } catch (err) {
     setVideo(null)

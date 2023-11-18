@@ -1,13 +1,13 @@
 import { MetaFields, Video } from '../types'
 
 /**
- * Replaces character in a filename that will be problematic.
+ * Replaces character in a filename that will be problematic and all trailine periods at the end
  *
  * @param str - current filename
  * @returns the replaced string.
  */
 function replaceIllegalCharacters(str: string) {
-  return str.replace(/[/\\?%*:|"<>.'`]/g, '')
+  return str.replace(/[/\\?%*:|"<>'`]|\.+$/g, '')
 }
 
 /**
