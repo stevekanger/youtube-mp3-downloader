@@ -5,7 +5,6 @@ import Navbar from './components/Navbar'
 import SearchResults from './components/SearchResults'
 import Video from './components/Video'
 import SpotifyAuthCallback from './components/SpotifyAuthCallback'
-import Message from './components/Message'
 
 export default function App() {
   return (
@@ -19,7 +18,6 @@ export default function App() {
             path='/auth/spotify/callback'
             element={<SpotifyAuthCallback />}
           />
-          <Route path='/message' element={<Message />} />
         </Routes>
       </PageContainer>
     </BrowserRouter>

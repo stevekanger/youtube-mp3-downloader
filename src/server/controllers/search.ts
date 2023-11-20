@@ -1,6 +1,12 @@
 import type { SectionRenderer, VideoRenderer, SearchResult } from '../types'
 import { Request, Response } from 'express'
 
+/**
+ * Parses through the video renderer sections of the json resonse
+ *
+ * @param renderer - The section renderer data
+ * @returns the valid information that is needed id, title, url, duration, thumbnail
+ */
 function parseVideoRenderer(renderer: VideoRenderer) {
   return {
     id: renderer.videoId,
@@ -13,6 +19,12 @@ function parseVideoRenderer(renderer: VideoRenderer) {
   }
 }
 
+/**
+ * parses through the json to get the video renderer section.
+ *
+ * @param section - these is the different section renderer data that youtube uses.
+ * @returns video data from the videoRenderer section.
+ */
 function parseJson(sections: SectionRenderer[]) {
   const videos: SearchResult[] = []
   sections.forEach((section) => {
@@ -25,6 +37,12 @@ function parseJson(sections: SectionRenderer[]) {
   return videos
 }
 
+/**
+ * Fetches the data from youtube's search page.
+ *
+ * @param query - the query that is being searched
+ * @returns parsed json.
+ */
 async function getVideos(query: string) {
   const url = `https://www.youtube.com/results?search_query=${query}`
   const response = await fetch(url)
@@ -44,6 +62,13 @@ async function getVideos(query: string) {
   return parseJson(sectionRenderers)
 }
 
+/**
+ * Controller callback for express. Sends a json response to the client.
+ *
+ * @param req - Express Request.
+ * @param res - Express Response.
+ * @returns void.
+ */
 export default async function search(req: Request, res: Response) {
   try {
     const { query } = req.body

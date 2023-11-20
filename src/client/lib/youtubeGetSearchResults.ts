@@ -24,6 +24,7 @@ export default async function getSearchResults(
 
     if (!response.ok) {
       setSearchResults({
+        query: '',
         isFetched: true,
         msg: `There was an error with your request. Please try again`,
         results: [],
@@ -35,6 +36,7 @@ export default async function getSearchResults(
     const { data } = await response.json()
 
     setSearchResults({
+      query,
       isFetched: true,
       msg: data?.length
         ? `Results for ${query}`
@@ -45,6 +47,7 @@ export default async function getSearchResults(
     return true
   } catch (err) {
     setSearchResults({
+      query: '',
       isFetched: true,
       msg: `There was an error with your request. Please try again`,
       results: [],

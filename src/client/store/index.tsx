@@ -6,10 +6,12 @@ export const [useSearchLoading, setSearchLoading, getSearchLoading] =
 
 export const [useSearchResults, setSearchResults, getSearchResults] =
   createStore<{
+    query: string
     isFetched: boolean
     msg: string
     results: SearchResults
   }>({
+    query: '',
     isFetched: false,
     msg: 'Search for a song...',
     results: [],

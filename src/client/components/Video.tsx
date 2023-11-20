@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 import SongMeta from './SongMeta'
-import { useVideo, setVideo } from '../store'
+import { useVideo } from '../store'
 import getVideo from '../lib/getVideo'
 import LoadingIndicator from './LoadingIndicator'
 import VideoFrame from './VideoFrame'
@@ -14,7 +14,7 @@ export default function Video() {
   const video = useVideo()
 
   async function getVideoInitialData() {
-    if (video || !videoId) return
+    if (!videoId || video?.id === videoId) return
 
     setLoading(true)
     await getVideo(videoId)

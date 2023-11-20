@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import youtubeGetSearchResults from '../lib/youtubeGetSearchResults'
 import { useSearchResults, useSearchLoading } from '../store'
@@ -7,19 +7,23 @@ import LoadingIndicator from './LoadingIndicator'
 
 export default function SearchResults() {
   const loading = useSearchLoading()
+  const location = useLocation()
   const [searchParams] = useSearchParams()
-  const { isFetched, msg, results } = useSearchResults()
+  const { isFetched, msg, results, query } = useSearchResults()
 
   async function checkForInitialResults() {
     const searchParamsQuery = searchParams.get('q')
-    if (!isFetched && searchParamsQuery) {
-      const searchResults = await youtubeGetSearchResults(searchParamsQuery)
+    if (
+      (!isFetched && searchParamsQuery) ||
+      (searchParamsQuery && query !== searchParamsQuery)
+    ) {
+      await youtubeGetSearchResults(searchParamsQuery)
     }
   }
 
   useEffect(() => {
     checkForInitialResults()
-  }, [searchParams])
+  }, [searchParams, location.pathname])
 
   if (loading) {
     return <LoadingIndicator />
