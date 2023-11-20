@@ -1,0 +1,25 @@
+.suggestions {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  width: 100%;
+  background: var(--dark-l1);
+  overflow: auto;
+  max-height: 16rem;
+}
+
+.suggestions li {
+  display: block;
+  padding: 1rem;
+  border-bottom: 0.1rem solid var(--dark);
+  transition: 300ms ease-out;
+}
+
+.suggestions li:hover {
+  background: var(--violet);
+}
+
+.suggestions li.active {
+  background: var(--violet);
+}

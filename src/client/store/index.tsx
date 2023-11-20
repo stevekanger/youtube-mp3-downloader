@@ -18,6 +18,12 @@ export const [useSearchResults, setSearchResults, getSearchResults] =
 export const [useSearchQuery, setSearchQuery, getSearchQuery] =
   createStore<string>('')
 
+export const [
+  useSearchSuggestions,
+  setSearchSuggestions,
+  getSearchSuggestions,
+] = createStore<string[]>([])
+
 export const [useVideo, setVideo, getVideo] = createStore<Video | null>(null)
 
 export const [useSpotifyMeta, setSpotifyMeta, getSpotifyMeta] =

@@ -1,4 +1,6 @@
 export * from './SpotifyTrackResults'
+export * from './SpotifyArtistResults'
+export * from './SuggestionResults'
 
 export type SearchResult = {
   id: string
