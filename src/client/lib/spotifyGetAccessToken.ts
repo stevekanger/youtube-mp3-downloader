@@ -37,6 +37,7 @@ export default async function spotifyGetAccessToken(code: string) {
     localStorage.setItem('spotify_access_token', access_token)
     localStorage.setItem('spotify_access_token_exp', access_token_exp)
     localStorage.setItem('spotify_refresh_token', refresh_token)
+    localStorage.removeItem('spotify_code_verifier')
 
     return { access_token, refresh_token }
   } catch (err) {

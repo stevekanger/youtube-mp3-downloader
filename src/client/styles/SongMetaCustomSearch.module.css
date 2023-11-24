@@ -1,0 +1,9 @@
+.form {
+  margin-top: 1rem;
+}
+
+.submitBtn {
+  display: block;
+  margin-top: 0.5rem;
+  width: 100%;
+}

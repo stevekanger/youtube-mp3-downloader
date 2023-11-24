@@ -2,12 +2,17 @@ import styles from '../styles/SearchBarSuggestions.module.css'
 import { useEffect, useState } from 'react'
 import { useSearchSuggestions, setSearchQuery } from '../store'
 
-export default function SearchBarSuggestions() {
+type Props = {
+  doSubmit: () => Promise<void>
+}
+
+export default function SearchBarSuggestions({ doSubmit }: Props) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const suggestions = useSearchSuggestions()
 
   function handleClick(suggestion: string) {
     setSearchQuery(suggestion)
+    doSubmit()
   }
 
   function changeActiveIndex(i: number) {

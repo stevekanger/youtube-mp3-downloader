@@ -27,8 +27,7 @@ export default function SearchBar() {
     }
   }, [])
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+  async function doSubmit() {
     if (!searchQuery) return
 
     navigate(`/?q=${encodeURIComponent(searchQuery)}`)
@@ -36,6 +35,11 @@ export default function SearchBar() {
     setShowSuggestions(false)
     setSearchSuggestions([])
     await youtubeGetSearchResults(searchQuery)
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    doSubmit()
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -55,14 +59,19 @@ export default function SearchBar() {
       className={styles.searchForm}
       onSubmit={handleSubmit}
     >
-      <input
-        className={styles.searchBar}
-        onChange={handleChange}
-        type='text'
-        placeholder='Search'
-        value={searchQuery}
-      />
-      {showSuggestions && <SearchBarSuggestions />}
+      <div className='input-group'>
+        <input
+          className={styles.searchBar}
+          onChange={handleChange}
+          type='text'
+          placeholder='Search'
+          value={searchQuery}
+        />
+        <button type='submit' className={`btn btn-primary ${styles.submitBtn}`}>
+          Go
+        </button>
+      </div>
+      {showSuggestions && <SearchBarSuggestions doSubmit={doSubmit} />}
     </form>
   )
 }

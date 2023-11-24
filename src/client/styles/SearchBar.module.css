@@ -8,13 +8,19 @@
   display: block;
   width: 100%;
   padding: 1rem;
-  border: 0.2rem solid var(--primary);
-  border-radius: 1.5rem;
+  border: 0.1rem solid var(--primary);
+  border-radius: 1.5rem 0 0 1.5rem;
   background: var(--dark-l1);
   outline: 0;
   color: var(--white);
 }
 
 .searchBar:focus {
-  border: 0.2rem solid var(--secondary);
+  border: 0.1rem solid var(--secondary);
+}
+
+.submitBtn {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0 1.5rem 1.5rem 0;
 }

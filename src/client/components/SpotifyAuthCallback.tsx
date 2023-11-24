@@ -15,8 +15,11 @@ export default function SpotifyAuthCallback() {
       const code = searchParams.get('code')
       if (!code) return
 
-      const referer = window.localStorage.getItem('spotify_oauth_referer')
-      if (referer) setReferer(referer)
+      const referer = localStorage.getItem('spotify_oauth_referer')
+      if (referer) {
+        setReferer(referer)
+        localStorage.removeItem('spotify_oauth_referer')
+      }
 
       const access = await spotifyGetAccessToken(code)
       if (!access) return

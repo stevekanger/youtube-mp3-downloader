@@ -1,8 +1,11 @@
 import styles from '../styles/SongMetaNav.module.css'
+import { useState } from 'react'
 import { setSpotifyMeta, useSpotifyMeta } from '../store'
+import SongMetaCustomSearch from './SongMetaCustomSearch'
 
 export default function SongMetaNav() {
   const spotifyMeta = useSpotifyMeta()
+  const [showSearch, setShowSearch] = useState(false)
 
   function handleClick(isNext: boolean) {
     if (isNext && spotifyMeta.results.length - 1 <= spotifyMeta.currentIndex) {
@@ -21,6 +24,7 @@ export default function SongMetaNav() {
 
   return (
     <div className={styles.songMetaNav}>
+      <p>Spotify Results: </p>
       <div className='btn-group'>
         <button
           disabled={spotifyMeta.currentIndex < 1}
@@ -29,10 +33,18 @@ export default function SongMetaNav() {
         >
           Prev
         </button>
+        <button
+          onClick={() => setShowSearch(!showSearch)}
+          className='btn btn-primary'
+        >
+          Custom Meta Search
+        </button>
         <button onClick={() => handleClick(true)} className='btn btn-primary'>
           Next
         </button>
       </div>
+
+      {showSearch && <SongMetaCustomSearch />}
     </div>
   )
 }
