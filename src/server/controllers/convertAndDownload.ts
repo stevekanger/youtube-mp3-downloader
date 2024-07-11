@@ -1,6 +1,6 @@
-import { Request, Response } from 'express'
-import ytdl from 'ytdl-core'
-import ffmpeg from 'fluent-ffmpeg'
+import { Request, Response } from "express";
+import ytdl from "@distube/ytdl-core";
+import ffmpeg from "fluent-ffmpeg";
 
 /*
 Necessary workaround for unexpected token error. Change the following lines in sig.js of the ytdl-core package
@@ -22,44 +22,44 @@ Refrenced here https://github.com/fent/node-ytdl-core/issues/1108#issuecomment-1
 
 export default async function convertAndDownload(req: Request, res: Response) {
   try {
-    const { video, meta, filename } = req.body
+    const { video, meta, filename } = req.body;
 
-    const videoUrl = `https://youtube.com/watch?v=${video.id}`
-    const videoInfo = await ytdl.getInfo(videoUrl)
+    const videoUrl = `https://youtube.com/watch?v=${video.id}`;
+    const videoInfo = await ytdl.getInfo(videoUrl);
     const videoFormat = ytdl.chooseFormat(videoInfo.formats, {
-      quality: 'highestaudio',
-    })
+      quality: "highestaudio",
+    });
 
-    res.header('Content-Disposition', `attachment; filename="${filename}"`)
+    res.header("Content-Disposition", `attachment; filename="${filename}"`);
 
-    const videoStream = ytdl(videoUrl, { format: videoFormat })
+    const videoStream = ytdl(videoUrl, { format: videoFormat });
 
     const cmd = ffmpeg()
       .input(videoStream)
-      .audioCodec('libmp3lame')
+      .audioCodec("libmp3lame")
       .audioBitrate(128)
-      .format('mp3')
-      .outputOption('-metadata', `title=${meta.title}`)
-      .outputOption('-metadata', `artist=${meta.artist}`)
-      .outputOption('-metadata', `album=${meta.album}`)
-      .outputOption('-metadata', `genre=${meta.genre}`)
-      .outputOption('-metadata', `track=${meta.track}`)
-      .outputOption('-metadata', `date=${meta.date}`)
-      .outputOption('-metadata', `year=${meta.year}`)
+      .format("mp3")
+      .outputOption("-metadata", `title=${meta.title}`)
+      .outputOption("-metadata", `artist=${meta.artist}`)
+      .outputOption("-metadata", `album=${meta.album}`)
+      .outputOption("-metadata", `genre=${meta.genre}`)
+      .outputOption("-metadata", `track=${meta.track}`)
+      .outputOption("-metadata", `date=${meta.date}`)
+      .outputOption("-metadata", `year=${meta.year}`);
 
-    cmd.on('error', (err) => {
-      console.log(err)
+    cmd.on("error", (err) => {
+      console.log(err);
       return res.status(500).json({
         success: false,
-        msg: 'There was an error during processing.',
-      })
-    })
+        msg: "There was an error during processing.",
+      });
+    });
 
-    cmd.pipe(res, { end: true })
+    cmd.pipe(res, { end: true });
   } catch (err) {
     res.status(500).json({
       success: false,
-      msg: 'There was an error during processing.',
-    })
+      msg: "There was an error during processing.",
+    });
   }
 }
