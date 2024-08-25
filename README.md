@@ -4,7 +4,7 @@ Express/React youtube mp3 downloader that adds the option to automatically set t
 
 ## Installation
 
-Requires ffmpeg to be installed on your machine. https://www.ffmpeg.org
+Requires ffmpeg and yt-dlp to be installed on your machine and executable as ffmpeg and yt-dlp respectively. https://www.ffmpeg.org and https://github.com/yt-dlp/yt-dlp
 
 Clone the repository
 
@@ -29,6 +29,4 @@ npm run dev
 
 ## Setup
 
-Navigate to the `src` folder and rename `config-exameple.ts` to `config.ts`. Then fill in your relevant information.
-
-If you get undefined token errors from `ytdl-core` then you may have to implement the workaround refrenced here https://github.com/fent/node-ytdl-core/issues/1108#issuecomment-1212705953
+Navigate to the `src` folder and rename `config-exameple.ts` to `config.ts`. Then fill in your relevant information. You will need spotify api credentials to use the spotify features.
