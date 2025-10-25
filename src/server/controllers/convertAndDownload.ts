@@ -21,7 +21,7 @@ export default async function convertAndDownload(req: Request, res: Response) {
     ]);
 
     const inputStream = new Readable({
-      read() {}, // No-op, as data is pushed manually
+      read() { }, // No-op, as data is pushed manually
     });
 
     videoStream.stdout.on("data", (chunk) => {
@@ -40,7 +40,7 @@ export default async function convertAndDownload(req: Request, res: Response) {
       if (code !== 0) {
         return res.status(500).json({
           success: false,
-          msg: "There was an error with yt-dlp.",
+          msg: `There was an error with yt-dlp. Code ${code}`,
         });
       }
 
@@ -87,6 +87,7 @@ export default async function convertAndDownload(req: Request, res: Response) {
       ffmpegStream.stdout.pipe(res, { end: true });
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({
       success: false,
       msg: "There was an error during processing.",

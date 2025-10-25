@@ -1,48 +1,49 @@
-import styles from '../styles/ConvertAndDownload.module.css'
-import { useState } from 'react'
-import { useMetaFields, useVideo } from '../store'
-import createFilename from '../lib/createFilename'
-import LoadingIndicator from './LoadingIndicator'
+import styles from "../styles/ConvertAndDownload.module.css";
+import { useState } from "react";
+import { useMetaFields, useVideo } from "../store";
+import createFilename from "../lib/createFilename";
+import LoadingIndicator from "./LoadingIndicator";
 
 export default function ConvertAndDownload() {
-  const [link, setLink] = useState<string>('')
-  const [loading, setLoading] = useState(false)
-  const [err, setErr] = useState('')
-  const video = useVideo()
-  const meta = useMetaFields()
-  const filename = createFilename(video, meta)
+  const [link, setLink] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState("");
+  const video = useVideo();
+  const meta = useMetaFields();
+  const filename = createFilename(video, meta);
 
   async function getConvertedMp3() {
-    if (!video) return
+    if (!video) return;
 
-    setLoading(true)
+    setLoading(true);
 
     try {
-      const response = await fetch('/api/convert-and-download', {
-        method: 'POST',
+      const response = await fetch("/api/convert-and-download", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           video,
           meta,
           filename,
         }),
-      })
+      });
 
       if (!response.ok) {
-        const json = await response.json()
-        setErr(json.msg)
+        const json = await response.json();
+        setErr(json.msg);
+      } else {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        setLink(url);
       }
-
-      const blob = await response.blob()
-      const url = window.URL.createObjectURL(blob)
-      setLink(url)
     } catch (err) {
-      setErr('There was an error during processing.')
+      console.log(err);
+      setErr("There was an error during processing.");
     }
 
-    setLoading(false)
+    setLoading(false);
   }
 
   if (loading) {
@@ -52,7 +53,7 @@ export default function ConvertAndDownload() {
           <LoadingIndicator />
         </button>
       </div>
-    )
+    );
   } else if (link) {
     return (
       <div className={`section`}>
@@ -64,7 +65,7 @@ export default function ConvertAndDownload() {
           Download
         </a>
       </div>
-    )
+    );
   } else if (err) {
     return (
       <div className={`section`}>
@@ -72,7 +73,7 @@ export default function ConvertAndDownload() {
           {err}
         </button>
       </div>
-    )
+    );
   } else {
     return (
       <div className={`section`}>
@@ -83,6 +84,6 @@ export default function ConvertAndDownload() {
           Convert And Download
         </button>
       </div>
-    )
+    );
   }
 }
