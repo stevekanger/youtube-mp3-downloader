@@ -1,10 +1,20 @@
+"use client";
+
 interface Props {
   id: string;
   label: string;
   name: string;
+  value: string;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function DetailsInput({ id, label, name }: Props) {
+export default function DetailsInput({
+  id,
+  label,
+  name,
+  value,
+  handleChange,
+}: Props) {
   return (
     <div className="w-full">
       <label>{label}</label>
@@ -13,6 +23,8 @@ export default function DetailsInput({ id, label, name }: Props) {
         type="text"
         id={id}
         name={name}
+        value={value}
+        onChange={handleChange}
       />
     </div>
   );

@@ -1,7 +1,9 @@
 import PageHeading from "@/components/ui/PageHeading";
 import PageWrapper from "@/components/ui/PageWrapper";
-import Processing from "./_components/Processing";
 import Link from "next/link";
+import ProcessingProvider from "./_components/ProcessingProvider";
+import ProcessingInfoForm from "./_components/ProcessingInfoForm";
+import ProcessVideo from "./_components/ProcessVideo";
 
 interface Props {
   searchParams: Promise<{ id: string; url: string; title: string }>;
@@ -37,7 +39,10 @@ export default async function VideoIdPage({ searchParams }: Props) {
         />
       </div>
 
-      <Processing id={id} title={title} />
+      <ProcessingProvider videoId={id} videoTitle={title}>
+        <ProcessingInfoForm />
+        <ProcessVideo />
+      </ProcessingProvider>
     </PageWrapper>
   );
 }
