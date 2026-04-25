@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
         contents: [
           {
             parts: {
-              text: `From the following title "${videoTitle}. Deduce the song title and artist and give me the following metadata "filename ,title, artist, date, year, album, track, genre" in a newline seperated key:value list with the following format key:value\n. If the value of any of these has a \n or : please omit that character. The filename should be in the following format "artist - title". All other values should be compatible with ffmpeg's metadata as they will be encoded as metadata to ffmpeg. Genres should be semi-colon seperated with no spaces as the delimiter but the genre themselves may have spaces and must be lowercase. DO NOT put anything besides the required information as I need to programatically parse the message.`,
+              text: `From the following title "${videoTitle}. Deduce the song title and artist and give me the following metadata in a valid json string with the following format {filename: "",title: "", artist: "", date: "", year: "", album: "", track: "", genre: ""}. The filename should be in the following format "artist - song title" and should omit special characters not allowed in filenames. All other values should be compatible with ffmpeg's metadata as they will be encoded as metadata to ffmpeg. Genres should be semi-colon seperated with no spaces as the delimiter but the genre themselves may have spaces and must be lowercase. The response should only contain a valid json string with the required data as it will be parsed programmatically.`,
             },
           },
         ],
@@ -25,17 +25,7 @@ export async function POST(req: NextRequest) {
 
     const data = await res.json();
     const text = data.candidates[0].content.parts[0].text;
-    const parsed = text
-      .split("\n")
-      .reduce((acc: Record<string, string>, cur: string) => {
-        const split = cur.split(":");
-
-        if (split[0] && split[1]) {
-          acc[split[0]] = split[1];
-        }
-
-        return acc;
-      }, {});
+    const parsed = JSON.parse(text);
 
     return NextResponse.json({
       success: true,

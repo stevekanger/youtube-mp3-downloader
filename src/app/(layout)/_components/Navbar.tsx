@@ -1,5 +1,5 @@
 import { Disclosure } from "@headlessui/react";
-import Profile from "./NavbarProfile";
+import NavbarProfile from "./NavbarProfile";
 import Logo from "./Logo";
 
 export default function Navbar() {
@@ -14,7 +14,7 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center justify-center">
-          <Profile />
+          <NavbarProfile />
         </div>
       </div>
     </Disclosure>
