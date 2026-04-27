@@ -16,6 +16,14 @@ export default function NavbarProfile() {
       >
         <MenuItem>
           <Link
+            href="/dashboard"
+            className="w-full block px-4 py-2 text-sm text-gray-300 hover:bg-white/5"
+          >
+            Dashboard
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link
             href="/dashboard/profile"
             className="w-full block px-4 py-2 text-sm text-gray-300 hover:bg-white/5"
           >

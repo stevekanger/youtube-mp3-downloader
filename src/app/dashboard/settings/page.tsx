@@ -4,7 +4,7 @@ import PageHeading from "@/components/ui/PageHeading";
 export default function SettingsPage() {
   return (
     <PageWrapper>
-      <PageHeading>Dashboard</PageHeading>
+      <PageHeading>Settings</PageHeading>
     </PageWrapper>
   );
 }

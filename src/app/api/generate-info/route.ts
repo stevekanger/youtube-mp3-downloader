@@ -9,14 +9,14 @@ export async function POST(req: NextRequest) {
     const res = await fetch(url, {
       method: "POST",
       headers: {
-        "x-goog-api-key": "AIzaSyDs99B9PF6--LUxWxwHT2yAbm1yDUv_ncE",
+        "x-goog-api-key": process.env.GEMINI_API_KEY as string,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         contents: [
           {
             parts: {
-              text: `From the following title "${videoTitle}. Deduce the song title and artist and give me the following metadata in a valid json string with the following format {filename: "",title: "", artist: "", date: "", year: "", album: "", track: "", genre: ""}. The filename should be in the following format "artist - song title" and should omit special characters not allowed in filenames. All other values should be compatible with ffmpeg's metadata as they will be encoded as metadata to ffmpeg. Genres should be semi-colon seperated with no spaces as the delimiter but the genre themselves may have spaces and must be lowercase. The response should only contain a valid json string with the required data as it will be parsed programmatically.`,
+              text: `From the following title "${videoTitle}. Deduce the song title and artist and give me the following metadata in a valid json string with the following format {filename: "",title: "", artist: "", date: "", year: "", album: "", track: "", genre: ""}. The filename should be in the following format "artist - song title" and should omit special characters not allowed in filenames. All other values should be compatible with ffmpeg's metadata as they will be encoded as metadata to ffmpeg. Genres should be semi-colon seperated with no spaces as the delimiter but the genre themselves may have spaces and must be lowercase. Date should be in simple date format (Year-Month-Day): eg 2023-10-25. The response should only contain a valid json string with the required data as it will be parsed programmatically.`,
             },
           },
         ],
