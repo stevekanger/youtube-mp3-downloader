@@ -2,7 +2,7 @@ import { ApiDataAiVendors, ApiServerResponse } from "@/features/api/types";
 import { prisma } from "@/lib/prisma";
 import { ApiError } from "@/utils";
 import { NextRequest, NextResponse } from "next/server";
-import { getUserAiVendorsMapped } from "@/features/ai/actions/ai-vendors";
+import { getUserAiVendorsMapped } from "@/features/ai/actions/vendors";
 import { getVendorModels } from "@/features/ai/services/vendors";
 
 type UrlParams = Promise<{ userId: string }>;
