@@ -1,6 +1,6 @@
 # Youbube Mp3 Downloader
 
-Really just made this for me but you can use it to your liking. Made with Next.js, Prisma, Next-Auth, and Mysql.
+Really just made this for me but you can use it to your liking. Made with Next.js, Prisma, Next-Auth, and Mysql. Currently only added support for Gemini models for ai metadata completion due to their free tier.
 
 ## Features
 
