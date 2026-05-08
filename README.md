@@ -1,5 +1,13 @@
 # Youbube Mp3 Downloader
 
+Really just made this for me but you can use it to your liking if you want. Made with Next.js, Prisma, Next-Auth, and Mysql.
+
+## Features
+
+- Converts Youtube videos to mp3 for you to download.
+- Search suggestions.
+- Users can have ai fill in track metadata.
+
 ## Getting Started
 
 Clone or download the repo and run
@@ -8,7 +16,7 @@ Clone or download the repo and run
 npm install
 ```
 
-First create a mysql database. Copy `.env.example` to `.env` and change your credentials.
+First create a mysql database. Then copy `.env.example` to `.env` and change your credentials for the database and google oauth.
 
 ```bash
 npx prisma generate
