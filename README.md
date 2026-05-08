@@ -16,7 +16,7 @@ Clone or download the repo and run
 npm install
 ```
 
-First create a mysql database. Then copy `.env.example` to `.env` and change your credentials for the database and google oauth.
+First create a mysql database. Then copy `.example.env` to `.env` and change your credentials for the database and google oauth.
 
 ```bash
 npx prisma generate
