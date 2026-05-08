@@ -1,6 +1,6 @@
 import PageHeading from "@/components/ui/PageHeading";
-import PageWrapper from "@/components/ui/PageWrapper";
-import { getSearchResults } from "./_actions/youtube";
+import Section from "@/components/ui/Section";
+import { getSearchResults } from "@/features/search";
 import SearchResultItem from "./_components/SearchResultItem";
 
 interface Props {
@@ -12,21 +12,25 @@ export default async function SearchPage({ searchParams }: Props) {
   const results = await getSearchResults(q);
 
   return (
-    <PageWrapper>
-      <PageHeading>Results for: {q}</PageHeading>
+    <>
+      <Section>
+        <PageHeading>Results for: {q}</PageHeading>
+      </Section>
 
-      {results.map((result) => (
-        <SearchResultItem
-          key={result.id}
-          id={result.id}
-          title={result.title}
-          url={result.url}
-          thumbnailUrl={result.thumbnailUrl}
-          duration={result.duration}
-          publishedAt={result.publishedAt}
-          views={result.views}
-        />
-      ))}
-    </PageWrapper>
+      <Section>
+        {results.map((result) => (
+          <SearchResultItem
+            key={result.id}
+            id={result.id}
+            title={result.title}
+            url={result.url}
+            thumbnailUrl={result.thumbnailUrl}
+            duration={result.duration}
+            publishedAt={result.publishedAt}
+            views={result.views}
+          />
+        ))}
+      </Section>
+    </>
   );
 }

@@ -22,7 +22,7 @@ export default function SearchResultItem({
   return (
     <Link
       href={`/video/?id=${id}&title=${title}&url=${url}`}
-      className="block flex flex-col my-4 sm:flex-row rounded-lg bg-gray-900 hover:bg-gray-800"
+      className="block flex flex-col my-4 sm:flex-row rounded-xl bg-background-secondary hover:bg-background-secondary-border"
     >
       <div className="p-4">
         <div className="relative w-full sm:w-54 rounded-lg overflow-hidden">

@@ -3,5 +3,5 @@ interface Props {
 }
 
 export default function PageHeading({ children }: Props) {
-  return <h1 className="text-3xl mb-8">{children}</h1>;
+  return <h1 className="text-3xl">{children}</h1>;
 }

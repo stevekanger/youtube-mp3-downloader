@@ -1,9 +1,11 @@
 import PageHeading from "@/components/ui/PageHeading";
-import PageWrapper from "@/components/ui/PageWrapper";
+import Section from "@/components/ui/Section";
+import SectionSecondary from "@/components/ui/SectionSecondary";
 import Link from "next/link";
-import ProcessingProvider from "./_components/ProcessingProvider";
-import ProcessingInfoForm from "./_components/ProcessingInfoForm";
+import ProcessingInfo from "./_components/ProcessingInfo";
+import ProcessingInfoProvider from "./_components/ProcessingInfoProvider";
 import ProcessVideo from "./_components/ProcessVideo";
+import AiProcessingInfo from "./_components/AiProcessingInfo";
 
 interface Props {
   searchParams: Promise<{ id: string; url: string; title: string }>;
@@ -14,35 +16,46 @@ export default async function VideoIdPage({ searchParams }: Props) {
 
   if (!id || !title || !url) {
     return (
-      <PageWrapper>
+      <Section>
         <PageHeading>Missing required fields.</PageHeading>
-      </PageWrapper>
+      </Section>
     );
   }
 
   return (
-    <PageWrapper>
-      <PageHeading>{title}</PageHeading>
+    <>
+      <Section>
+        <PageHeading>{title}</PageHeading>
+      </Section>
 
-      <p className="my-4">
-        Watch on youtube{" "}
-        <Link className="underline" href={url} target="_blank">
-          Here
+      <Section>
+        <Link
+          className="inline-block mb-4 underline"
+          href={url}
+          target="_blank"
+        >
+          Watch On Youtube
         </Link>
-      </p>
+        <div className="relative w-full aspect-video">
+          <iframe
+            className="absolute inset-0 w-full h-full"
+            src={`https://youtube.com/embed/${id}`}
+            allowFullScreen
+          />
+        </div>
+      </Section>
 
-      <div className="relative my-4 w-full aspect-video">
-        <iframe
-          className="absolute inset-0 w-full h-full"
-          src={`https://youtube.com/embed/${id}`}
-          allowFullScreen
-        />
-      </div>
-
-      <ProcessingProvider videoId={id} videoTitle={title}>
-        <ProcessingInfoForm />
-        <ProcessVideo />
-      </ProcessingProvider>
-    </PageWrapper>
+      <ProcessingInfoProvider videoId={id} videoTitle={title}>
+        <SectionSecondary>
+          <ProcessingInfo />
+        </SectionSecondary>
+        <SectionSecondary>
+          <AiProcessingInfo />
+        </SectionSecondary>
+        <Section>
+          <ProcessVideo />
+        </Section>
+      </ProcessingInfoProvider>
+    </>
   );
 }

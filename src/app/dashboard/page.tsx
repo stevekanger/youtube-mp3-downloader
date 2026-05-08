@@ -1,10 +1,14 @@
-import PageWrapper from "@/components/ui/PageWrapper";
-import PageHeading from "@/components/ui/PageHeading";
+import Section from "@/components/ui/Section";
+import DashboardGreeting from "./_components/DashboardGreeting";
 
-export default function SettingsPage() {
+export default function DashboardPage() {
   return (
-    <PageWrapper>
-      <PageHeading>Dashboard</PageHeading>
-    </PageWrapper>
+    <Section>
+      <DashboardGreeting />
+      <p className="my-4">
+        Here you can change your settings, edit your profile and other account
+        related things.
+      </p>
+    </Section>
   );
 }

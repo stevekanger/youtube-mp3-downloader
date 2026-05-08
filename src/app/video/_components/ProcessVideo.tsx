@@ -1,21 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import useProcessing from "../_hooks/useProcessing";
+import { useApi } from "@/features/api";
+import useProcessingInfo from "../_hooks/useProcessingInfo";
+import { ApiDataProcessVideo } from "@/features/api/types";
+import Btn from "@/components/ui/Btn";
+import ProcessingText from "@/components/ui/ProcessingText";
+import useFormMessages from "@/features/forms/hooks/useFormMessages";
+import InputErrorMsg from "@/components/ui/InputErrorMsg";
 
 export default function ProcessVideo() {
-  const { videoId, processingInfo } = useProcessing();
-  const [loading, setLoading] = useState(false);
+  const { videoId, processingInfo } = useProcessingInfo();
+  const { apiFetch, isPending } = useApi();
+  const { formMessages, setFormMessages } = useFormMessages("");
 
   async function handleClick() {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/process", {
+    setFormMessages("");
+    const { ok, msg, data } = await apiFetch<ApiDataProcessVideo>(
+      "/api/process-video",
+      {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+        body: {
           id: videoId,
           filename: processingInfo.filename,
           title: processingInfo.title,
@@ -25,41 +29,34 @@ export default function ProcessVideo() {
           date: processingInfo.date,
           year: processingInfo.year,
           genre: processingInfo.genre,
-        }),
-      });
+        },
+      },
+    );
 
-      if (!res.ok) {
-        throw new Error("There was an error processing your request.");
-      }
-
-      const { success, msg, data } = await res.json();
-
-      if (!success) {
-        throw new Error(data.msg);
-      }
-
-      const blob = new Blob([Buffer.from(data, "base64")], {
-        type: "audio/mpeg",
-      });
-
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${processingInfo.filename || "File"}.mp3`;
-      a.click();
-    } catch (err) {
-      console.log(err);
+    if (!ok) {
+      setFormMessages(msg);
+      return;
     }
 
-    setLoading(false);
+    const blob = new Blob([Buffer.from(data, "base64")], {
+      type: "audio/mpeg",
+    });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${processingInfo.filename || "File"}.mp3`;
+    a.click();
   }
 
   return (
-    <button
-      onClick={handleClick}
-      className="text-3xl w-full py-8 px-4 mb-8 bg-indigo-800 hover:bg-indigo-700 rounded-lg"
-    >
-      {loading ? "Processing..." : "Convert And Download"}
-    </button>
+    <div>
+      <Btn size="xl" width="full" onClick={handleClick}>
+        <ProcessingText isPending={isPending}>
+          Convert And Dowload
+        </ProcessingText>
+      </Btn>
+      <InputErrorMsg>{formMessages}</InputErrorMsg>
+    </div>
   );
 }

@@ -1,11 +1,4 @@
-export interface ProcessingContextType {
-  videoId: string;
-  videoTitle: string;
-  processingInfo: ProcessingInfo;
-  setProcessingInfo: React.Dispatch<React.SetStateAction<ProcessingInfo>>;
-}
-
-export interface ProcessingInfo {
+export interface ProcessingInfoData {
   filename: string;
   title: string;
   artist: string;
