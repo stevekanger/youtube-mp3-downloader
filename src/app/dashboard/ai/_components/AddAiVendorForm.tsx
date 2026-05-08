@@ -56,6 +56,7 @@ export default function AddAiVendorForm() {
     clearFormData();
     clearFormMessages();
     setVendors(data);
+    setIsOpen(false);
   }
 
   if (!isOpen) {

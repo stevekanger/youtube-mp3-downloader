@@ -1,4 +1,4 @@
-import { AiVendor } from "@/features/ai/types";
+import { AiVendorMapped } from "@/features/ai/types";
 
 export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
@@ -13,13 +13,6 @@ export interface ApiServerResponse<TData> {
   msg: string;
   data: TData | null;
 }
-
-// export interface ApiResponse<TData> {
-//   ok: boolean;
-//   status: number;
-//   msg: string | null;
-//   data: TData | null;
-// }
 
 export type ApiResponse<TData> =
   | {
@@ -48,4 +41,4 @@ export type ApiDataGenrateFileData = {
   genre: string;
 };
 
-export type ApiDataAiVendors = AiVendor[];
+export type ApiDataAiVendors = AiVendorMapped[];

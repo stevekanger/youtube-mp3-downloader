@@ -30,7 +30,7 @@ export async function PATCH(
     const status = err instanceof ApiError ? err.status : 500;
     return NextResponse.json(
       {
-        msg: err.msg,
+        msg: err.message,
         data: null,
       },
       { status },
@@ -54,11 +54,10 @@ export async function DELETE(
       data: null,
     });
   } catch (err: any) {
-    console.log(err);
     const status = err instanceof ApiError ? err.status : 500;
     return NextResponse.json(
       {
-        msg: err.msg,
+        msg: err.message,
         data: null,
       },
       { status },

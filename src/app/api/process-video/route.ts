@@ -76,7 +76,7 @@ export async function POST(
     const status = err instanceof ApiError ? err.status : 500;
     return NextResponse.json(
       {
-        msg: err.msg,
+        msg: err.message,
         data: null,
       },
       { status },

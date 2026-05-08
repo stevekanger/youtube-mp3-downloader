@@ -21,16 +21,17 @@ export default function useApi() {
         body: body ? JSON.stringify(body) : undefined,
       });
 
+      const json: ApiServerResponse<TData> = await res.json();
+
       if (!res.ok) {
         return {
           ok: false,
           status: res.status,
-          msg: `Error ${res.statusText}`,
+          msg: json.msg,
           data: null,
         };
       }
 
-      const json: ApiServerResponse<TData> = await res.json();
       return {
         ok: true,
         status: res.status,
@@ -38,7 +39,6 @@ export default function useApi() {
         data: json.data as TData,
       };
     } catch (err) {
-      console.log(err);
       return {
         ok: false,
         status: 0,

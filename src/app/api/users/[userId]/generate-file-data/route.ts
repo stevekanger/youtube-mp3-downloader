@@ -34,15 +34,21 @@ export async function POST(
       throw new ApiError(400, `Unknown ai vendor ${vendor}`);
     }
 
+    await prisma.userAiVendors.update({
+      where: { id: vendorRow.id },
+      data: { lastUsedModel: model, lastUsed: new Date() },
+    });
+
     return NextResponse.json({
       msg: "Successfully retreived data",
       data: data,
     });
   } catch (err: any) {
+    console.log(err);
     const status = err instanceof ApiError ? err.status : 500;
     return NextResponse.json(
       {
-        msg: err.msg,
+        msg: err.message,
         data: null,
       },
       { status },

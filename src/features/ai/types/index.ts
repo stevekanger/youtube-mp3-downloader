@@ -1,9 +1,9 @@
-export interface AiVendor {
+export interface AiVendorMapped {
   id: string;
   name: string;
   key: string;
-  active: boolean;
-  model: string;
+  lastUsed: Date;
+  lastUsedModel: string;
 }
 
 export interface AiVendorModels {

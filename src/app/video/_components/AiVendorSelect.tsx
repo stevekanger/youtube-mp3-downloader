@@ -2,20 +2,15 @@
 
 import Option from "@/components/ui/Option";
 import Select from "@/components/ui/Select";
-import { AiVendor } from "@/features/ai/types";
+import { AiVendorMapped } from "@/features/ai/types";
 import { FormChangeFunction } from "@/features/forms/types";
 
 interface Props {
-  vendors: AiVendor[];
-  activeVendor: AiVendor | null;
+  vendors: AiVendorMapped[];
   handleChange: FormChangeFunction;
 }
 
-export default function AiVendorSelect({
-  activeVendor,
-  vendors,
-  handleChange,
-}: Props) {
+export default function AiVendorSelect({ vendors, handleChange }: Props) {
   if (!vendors.length) {
     return (
       <Select variant="sm">
@@ -28,7 +23,7 @@ export default function AiVendorSelect({
     <Select
       name="vendor"
       onChange={handleChange}
-      defaultValue={activeVendor?.name || ""}
+      defaultValue={vendors[0]?.name || ""}
       variant="sm"
     >
       <Option value="">-- Select a vendor --</Option>

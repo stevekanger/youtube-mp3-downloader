@@ -1,12 +1,11 @@
-import { AiVendor } from "../types";
+import { AiVendorMapped } from "../types";
 import { createContext } from "react";
 
 interface AiVendorContextType {
   initialized: boolean;
   isPending: boolean;
-  vendors: AiVendor[];
-  setVendors: React.Dispatch<React.SetStateAction<AiVendor[]>>;
-  activeVendor: AiVendor | null;
+  vendors: AiVendorMapped[];
+  setVendors: React.Dispatch<React.SetStateAction<AiVendorMapped[]>>;
 }
 
 const AiVendorContext = createContext<AiVendorContextType>({
@@ -14,7 +13,6 @@ const AiVendorContext = createContext<AiVendorContextType>({
   isPending: false,
   vendors: [],
   setVendors: () => { },
-  activeVendor: null,
 });
 
 export default AiVendorContext;

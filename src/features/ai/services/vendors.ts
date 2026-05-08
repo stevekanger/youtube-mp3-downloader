@@ -11,7 +11,7 @@ export function getVendorModels(name: string): AiVendorModels | null {
   switch (name) {
     case AI_VENDOR_GOOGLE:
       return {
-        default: "gemini-3.1-pro-preview",
+        default: "gemini-3-flash-preview",
         all: [
           "gemini-3.1-pro-preview",
           "gemini-3-flash-preview",

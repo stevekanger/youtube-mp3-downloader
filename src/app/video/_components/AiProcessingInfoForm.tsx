@@ -1,7 +1,7 @@
 "use client";
 
 import { useApi } from "@/features/api";
-import { useFormData, useFormMessages } from "@/features/forms";
+import { useFormMessages } from "@/features/forms";
 import { useSession } from "next-auth/react";
 import useProcessingInfo from "../_hooks/useProcessingInfo";
 import { ApiDataGenrateFileData } from "@/features/api/types";
@@ -13,24 +13,47 @@ import InputLabel from "@/components/ui/InputLabel";
 import InputErrorMsg from "@/components/ui/InputErrorMsg";
 import AiVendorSelect from "./AiVendorSelect";
 import AiModelSelect from "./AiModelSelect";
+import { useState } from "react";
+import { FormChangeEvent } from "@/features/forms/types";
 
 export default function AiProcessingInfoForm() {
-  const { vendors, activeVendor } = useAiVendors();
+  const { vendors } = useAiVendors();
   const { videoTitle, setProcessingInfo } = useProcessingInfo();
   const { apiFetch, isPending } = useApi();
   const { data: session } = useSession();
   const { formMessages, setFormMessages, clearFormMessages } =
     useFormMessages("");
-  const { formData, handleChange } = useFormData({
-    vendor: activeVendor?.name || "",
-    model: activeVendor?.model || "",
+  const [formData, setFormData] = useState({
+    vendor: vendors[0]?.name || "",
+    model: vendors[0]?.lastUsedModel || "",
   });
+
+  function handleChange(e: FormChangeEvent) {
+    setFormData((prev) => {
+      if (e.target.name === "vendor" && !e.target.value) {
+        return {
+          vendor: "",
+          model: "",
+        };
+      }
+
+      return {
+        ...prev,
+        [e.target.name]: e.target.value,
+      };
+    });
+  }
 
   async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     clearFormMessages();
 
-    if (!session?.user || !formData.vendor) {
+    if (!session?.user) {
+      return;
+    }
+
+    if (!formData.model || !formData.vendor) {
+      setFormMessages("Vendor and model are required.");
       return;
     }
 
@@ -39,9 +62,9 @@ export default function AiProcessingInfoForm() {
       {
         method: "POST",
         body: {
+          videoTitle,
           vendor: formData.vendor,
           model: formData.model,
-          videoTitle,
         },
       },
     );
@@ -60,17 +83,13 @@ export default function AiProcessingInfoForm() {
       <div className="flex gap-2">
         <InputGroup>
           <InputLabel>Vendor:</InputLabel>
-          <AiVendorSelect
-            vendors={vendors}
-            activeVendor={activeVendor}
-            handleChange={handleChange}
-          />
+          <AiVendorSelect vendors={vendors} handleChange={handleChange} />
         </InputGroup>
         <InputGroup>
           <InputLabel>Model:</InputLabel>
           <AiModelSelect
             vendor={formData.vendor}
-            defaultModel={activeVendor?.model || ""}
+            defaultModel={formData.model}
             handleChange={handleChange}
           />
         </InputGroup>

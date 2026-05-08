@@ -2,10 +2,7 @@ import { ApiDataAiVendors, ApiServerResponse } from "@/features/api/types";
 import { prisma } from "@/lib/prisma";
 import { ApiError } from "@/utils";
 import { NextRequest, NextResponse } from "next/server";
-import {
-  getUserAiVendorsMapped,
-  getUserAiVendorsCount,
-} from "@/features/ai/actions/ai-vendors";
+import { getUserAiVendorsMapped } from "@/features/ai/actions/ai-vendors";
 import { getVendorModels } from "@/features/ai/services/vendors";
 
 type UrlParams = Promise<{ userId: string }>;
@@ -26,7 +23,7 @@ export async function GET(
     const status = err instanceof ApiError ? err.status : 500;
     return NextResponse.json(
       {
-        msg: err.msg,
+        msg: err.message,
         data: null,
       },
       { status },
@@ -52,14 +49,12 @@ export async function POST(
       throw new ApiError(400, `Invalid vendor name ${name}`);
     }
 
-    const hasAiVendors = await getUserAiVendorsCount(userId);
     await prisma.userAiVendors.create({
       data: {
         userId,
         name,
         key,
-        active: hasAiVendors ? false : true,
-        model: models.default,
+        lastUsedModel: models.default,
       },
     });
 
@@ -72,7 +67,7 @@ export async function POST(
     const status = err instanceof ApiError ? err.status : 500;
     return NextResponse.json(
       {
-        msg: err.msg,
+        msg: err.message,
         data: null,
       },
       { status },
@@ -106,7 +101,7 @@ export async function PATCH(
     const status = err instanceof ApiError ? err.status : 500;
     return NextResponse.json(
       {
-        msg: err.msg,
+        msg: err.message,
         data: null,
       },
       { status },
@@ -139,7 +134,7 @@ export async function DELETE(
     const status = err instanceof ApiError ? err.status : 500;
     return NextResponse.json(
       {
-        msg: err.msg,
+        msg: err.message,
         data: null,
       },
       { status },
