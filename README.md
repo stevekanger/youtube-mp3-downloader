@@ -10,7 +10,7 @@ Really just made this for me but you can use it to your liking. Made with Next.j
 
 ## Getting Started
 
-Clone or download the repo and run
+Requires `yt-dlp` to be installed on your machine. Then clone or download the repo and run
 
 ```bash
 npm install
